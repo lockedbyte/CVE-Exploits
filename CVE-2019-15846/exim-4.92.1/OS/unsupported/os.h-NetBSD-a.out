@@ -1,5 +1,0 @@
-/* Exim: OS-specific C header file for NetBSD (a.out binary format) */
-
-#include "../OS/os.h-NetBSD"     /* Same as for ELF format */
-
-/* End */
