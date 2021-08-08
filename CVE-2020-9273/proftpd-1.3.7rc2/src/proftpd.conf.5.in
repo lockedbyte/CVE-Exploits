@@ -1,0 +1,53 @@
+.TH proftpd.conf 5
+.SH NAME
+proftpd.conf \- ProFTPD server configuration file
+.SH DESCRIPTION
+.PP
+The
+.B proftpd(8)
+daemon reads its configuration file, typically stored in one of the following
+locations:
+.LP
+.I /etc/proftpd.conf
+.br
+.I /etc/proftpd/proftpd.conf
+.br
+.I /usr/local/etc/proftpd.conf
+.TP
+or passed to proftpd with the -c command-line option.
+.PP
+The
+.B proftpd.conf
+configuration file contains
+.I directives
+, one per line. Lines starting with # and empty lines are comments and are
+ignored. Directives are case-insensitive, whereas values are case-sensitive.
+Values may be enclosed in double-quotes (") if they contain spaces.
+.PP
+The possible directives and their descriptions are described online at
+.BR http://www.proftpd.org/docs/directives/linked/by-name.html
+.RE
+.SH FILES
+.PD 0
+.B @SBINDIR@/proftpd
+.br
+.B @SYSCONFDIR@/proftpd.conf
+.PP
+.PD
+.SH AUTHORS
+.PP
+ProFTPD is written and maintained by a number of people, full credits
+can be found on
+.BR http://www.proftpd.org/credits.html
+.PD
+.SH "SEE ALSO"
+.BR proftpd(8)
+.PP
+Full documentation on ProFTPD, including configuration and FAQs, is available at
+.BR http://www.proftpd.org/
+.PP 
+For help/support, try the ProFTPD mailing lists, detailed on
+.BR http://www.proftpd.org/lists.html
+.PP
+Report bugs at
+.BR http://bugs.proftpd.org/

@@ -1,0 +1,148 @@
+.TH proftpd 8 "July 2000"
+.\" Process with
+.\" groff -man -Tascii proftpd.1 
+.\"
+.SH NAME
+proftpd \- Professional configurable, secure file transfer protocol server
+.SH SYNOPSIS
+.B proftpd
+[
+.B \-hlntv
+] [
+.BI \-c " config\-file"
+] [
+.BI \-d " debuglevel"
+] [
+.BI \-p " 0|1"
+]
+.SH DESCRIPTION
+.B proftpd
+is the Professional File Transfer Protocol (FTP) server daemon.  The server 
+may be invoked by the Internet "super-server" inetd(8) each time a
+connection to the FTP service is made, or alternatively it can be run as a
+standalone daemon.
+.PP
+.br
+Each successful and failed ftp(1) session is logged using syslog with a
+facility of LOG_FTP.  Note: LOG_FTP messages are not displayed
+by syslogd(8) by default, and may have to be enabled in syslogd(8)'s
+configuration file.
+.PP
+When
+.B proftpd
+is run in standalone mode and it receives a SIGHUP then it will reread its
+configuration file.  When run in standalone mode without the
+.B \-n
+option, the main
+.B proftpd
+daemon writes its process ID to
+.B @LOCALSTATEDIR@/proftpd.pid
+to make it easy to know which process to SIGHUP.
+.SH OPTIONS
+.TP 12
+.B \-h,\--help
+Display a short usage description, including all available options.
+.TP
+.B \-n,\--nodaemon
+Runs the proftpd process in standalone mode (must be configured as such in
+the configuration file), but does not background the process or
+disassociate it from the controlling tty.  Additionally, all output (log
+or debug messages) are sent to stderr, rather than the syslog mechanism. 
+Most often used with the \fB-d option\fP for debugging. 
+.TP
+.B \-q,\--quiet
+Quiet mode; don't send logging information to standard error when running
+with the \fB-n option\fP.
+.TP
+.B \-v,\--version
+Displays the version number of ProFTPD to stdout.
+.TP
+.BI \-D,\--define " parameter"
+Sets a configuration \fIparameter\fP which can be used <IfDefine>...</IfDefine>
+sections in the configuration files to conditionally skip or process
+commands.
+.TP
+.BI \-d,\--debug " debuglevel"
+Sets proftpd's internal debug level (normally 0).  The \fIdebuglevel\fP
+should be an integer value from 0 to 10, with higher numbers producing more
+debug output.  Normally, debug messages are sent to \fBsyslog\fP using the
+\fBDEBUG\fP facility, however if the \fB-n option\fP is used, all such
+output is sent to stderr.
+.TP
+.BI \-c,\--config " config\-file"
+Specifies an alternate \fIconfig\-file\fP to be parsed at startup, rather
+than the default configuration file.  The default configuration file is
+.B @SYSCONFDIR@/proftpd.conf
+.br
+.TP
+.BI \-N,\--nocollision
+Disables address/port collision checking.
+.TP
+.BI \-S,\--serveraddr
+Specifies an IP address for the host machine, avoiding an DNS lookup of the hostname
+.TP
+.BI \-t,\--configtest
+Read the configuration file, report any syntax errors, and exit.
+.TP
+.BI \-p,\--persistent " 0|1"
+Disables (0) or enables (1) the default persistent password support, which
+is determined at configure time for each platform.  This option \fBonly\fP
+affects the default support, it can still be overridden at run-time with
+the \fBPersistentPasswd\fP directive.
+.TP
+.BI \-l,\--list
+Lists all modules compiled into proftpd.
+.TP
+.BI \-V,\--settings
+Displays various compile-time settings and exits.
+.TP
+.BI \-X,\--nofork
+Debug mode (do not fork a session process); exits after one session.
+.TP
+.BI \-4,\--ipv4
+Support IPv4 functionality \fBonly\fP, regardless of whether the
+\fB--enable-ipv6\fP configure option was used.
+.TP
+.BI \-6,\--ipv6
+Support IPv6 connections and lookup of IPv6 addresses for server DNS names.
+This is enabled by default, if the \fB--enable-ipv6\fP configure option is
+used.
+.SH FILES
+.PD 0
+.B @SBINDIR@/proftpd
+.br
+.B @SYSCONFDIR@/proftpd.conf
+.br
+.B @BINDIR@/ftpwho
+.br
+.B @BINDIR@/ftpcount
+.br
+.B @BINDIR@/ftptop
+.br
+.B @SBINDIR@/ftpshut
+.br
+.B /etc/ftpusers
+.br
+.B /var/log/xferlog
+.br
+.B @LOCALSTATEDIR@/proftpd.pid
+.br
+.B @LOCALSTATEDIR@/proftpd.scoreboard
+.PD
+.SH AUTHORS
+.PP
+ProFTPD is written and maintained by a number of people, full credits
+can be found on
+.BR http://www.proftpd.org/credits.html
+.PD
+.SH SEE ALSO
+.BR proftpd.conf(5), inetd(8), ftp(1), ftpwho(1), ftpcount(1), ftpshut(8)
+.PP
+Full documentation on ProFTPD, including configuration and FAQs, is available at
+.BR http://www.proftpd.org/
+.PP 
+For help/support, try the ProFTPD mailing lists, detailed on
+.BR http://www.proftpd.org/lists.html
+.PP
+Report bugs at
+.BR http://bugs.proftpd.org/
