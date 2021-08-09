@@ -1,7 +1,0 @@
-[Unit]
-Description=ProFTPD FTP Server
-After=local-fs.target
-
-[Service]
-ExecStart=-/usr/sbin/in.proftpd
-StandardInput=socket
